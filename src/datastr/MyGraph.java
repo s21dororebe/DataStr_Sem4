@@ -36,28 +36,30 @@ public class MyGraph <T> {
         arraySize = newArraySize;
     }
 
-    /*
-    TODO
-    public boolean addVertice(T newItem){}
-    public boolean addEdge(T fromV, T toV, int weight){}
-    public int indexIs(T item){}
-    public int weightIs(T fromV, T toV){}
+    public void addVertice(T inputElement) throws Exception {
+        if(inputElement == null){
+            throw (new Exception("Vertice is null"));
+        }
+        //verify if vertice is not already in graph
+        for(int i = 0; i < elementCounter; i++){
+            if(graphElements[i].getElement().equals(inputElement)){
+                throw (new Exception("Vertice is already in graph"));
+            }
+        }
+        //verify if graph is not full
+        if(isFull())
+            increaseArray();
+        graphElements[elementCounter++] = new MyVerticeNode<T>(inputElement);
+    }
+    public boolean addEdge(T fromV, T toV, int weight){
+
+    }
     public void printNeighbourVertices(T fromV){}
-    public String toString(){}
     public void makeEmpty(){}
-    //nevis izprintē, bet ievieto virsotni rindā un atgriež rindu
-    public MyQueue saveNeighbourVertices(T fromV){}
-    // atzīmē virsotni kā apmeklētu
-    public void markVertex(T vertex){}
-    // pārbauda, vai virsotne jau ir apmeklēta
-    public boolean isMarked(T vertex){}
-    public void clearMarks(){}
-    // grafa apiešana ejot dziļumā, pēc nepieciešamības var izmantot savas iepriekš izveidotās MyStack un MyQueue klases
-    public void printDepthFirst(T fromV, T toV){}
-    // grafa apiešana ejot platumā, pēc nepieciešamības var izmantot savas iepriekš izveidotās MyStack un MyQueue klases
-    public void printBreadthFirst(T fromV, T toV){}
-    //īsākā ceļa atrašana no virsotnes fromV uz virsotni toV
-    public void printShortestPath( T fromV, T toV){}
-*/
+
+    //TODO remove vertice
+    //TODO remove edge
+    //TODO changeEdge
+
 
 }
