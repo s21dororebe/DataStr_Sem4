@@ -1,0 +1,31 @@
+Seminārs Nr.4 (Grafi)
+Uzrakstīt svērta orientēta grafa realizāciju, izmantojot kādu no realizācijas veidiem, kuros nepieciešams lietot saistīto pieraksta veidu.
+
+Grafu realizēt izmantojot šablonus (templates).
+
+Pārbaudīt grafa darbības, izveidojot sekojošu svērtu grafu:
+
+theTask.png
+
+All items:
+Izveidot nepieciešamās mezgla klases (atkarīgs no implementācijas veida)
+Izveidot MyGraph klasi ar nepieciešamajiem mainīgajiem
+MyGraph klasē realizēt sekojošas funkcijas:
+public MyGraph()
+public boolean isFull()
+public boolean isEmpty()
+public boolean addVertice(T newItem)
+public boolean addEdge(T fromV, T toV, int weight)
+public int indexIs(T item)
+public int weightIs(T fromV, T toV)
+public void printNeighbourVertices(T fromV)
+public String toString()
+public void makeEmpty()
+public MyQueue saveNeighbourVertices(T fromV)//nevis izprintē, bet ievieto virsotni rindā un atgriež rindu
+public void markVertex(T vertex) // atzīmē virsotni kā apmeklētu
+public boolean isMarked(T vertex) // pārbauda, vai virsotne jau ir apmeklēta
+public void clearMarks()
+public void printDepthFirst(T fromV, T toV) // grafa apiešana ejot dziļumā, pēc nepieciešamības var izmantot savas iepriekš izveidotās MyStack un MyQueue klases
+public void printBreadthFirst(T fromV, T toV) // grafa apiešana ejot platumā, pēc nepieciešamības var izmantot savas iepriekš izveidotās MyStack un MyQueue klases
+*public void printShortestPath( T fromV, T toV) //īsākā ceļa atrašana no virsotnes fromV uz virsotni toV
+Izveidot Main klasi ar main funkciju, kurā izveidot attēlā parādīto grafu un izsaukt iepriekš izveidotās funkcijas

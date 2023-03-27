@@ -4,7 +4,7 @@ public class MyEdgeNode {
     private int indexOfVertice;
     private float weight; //piemeram, kilometri
     private MyEdgeNode next = null;
-
+    //GETTERS & SETTERS
     public int getIndexOfVertice() {
         return indexOfVertice;
     }
@@ -33,9 +33,15 @@ public class MyEdgeNode {
     public void setNext(MyEdgeNode next) {
         this.next = next;
     }
+    //CONSTRUCTOR + TOSTRING
+    public MyEdgeNode(int inputIndexOfVertice, float inputWeight){
+        setIndexOfVertice(inputIndexOfVertice);
+        setWeight(inputWeight);
+    }
+    @Override
+    public String toString() {
+        return "" + weight;
+    }
 
-//    public MyEdgeNode(){
-//        setIndexOfVertice();
-//        setWeight();
-//    }
+    //OTHER FUNCTIONS
 }

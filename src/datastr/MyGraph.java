@@ -1,7 +1,18 @@
 package datastr;
 
-public class MyGraph<T> {
-/*
+public class MyGraph {
+    private MyVerticeNode element;
+
+    public MyVerticeNode getElement() {
+        return element;
+    }
+    public void setElement(MyVerticeNode element) {
+        this.element = element;
+    }
+
+    public MyGraph(){}
+
+    /*
     public boolean isFull(){}
     public boolean isEmpty(){}
     public boolean addVertice(T newItem){}
@@ -24,6 +35,6 @@ public class MyGraph<T> {
     public void printBreadthFirst(T fromV, T toV){}
     //īsākā ceļa atrašana no virsotnes fromV uz virsotni toV
     public void printShortestPath( T fromV, T toV){}
-    */
+*/
 
 }
