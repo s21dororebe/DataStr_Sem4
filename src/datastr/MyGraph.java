@@ -1,16 +1,23 @@
 package datastr;
 
-public class MyGraph {
-    private MyVerticeNode element;
+public class MyGraph <T> {
+    private MyVerticeNode[] graphElements;
+    private final int DEFAULT_ARRAY_SIZE = 10;
+    private int arraySize = DEFAULT_ARRAY_SIZE;
+    private int elementCounter = 0;
 
-    public MyVerticeNode getElement() {
-        return element;
+    //no args constructor
+    public MyGraph()
+    {
+        graphElements = new MyVerticeNode[arraySize];
     }
-    public void setElement(MyVerticeNode element) {
-        this.element = element;
+    //args constructor
+    public MyGraph(int inputArraySize) {
+        if(inputArraySize > 0) {
+            arraySize = inputArraySize;
+        }
+        graphElements = new MyVerticeNode[arraySize];
     }
-
-    public MyGraph(){}
 
     /*
     public boolean isFull(){}
