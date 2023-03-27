@@ -6,12 +6,10 @@ public class MyGraph <T> {
     private int arraySize = DEFAULT_ARRAY_SIZE;
     private int elementCounter = 0;
 
-    //no args constructor
     public MyGraph()
     {
         graphElements = new MyVerticeNode[arraySize];
     }
-    //args constructor
     public MyGraph(int inputArraySize) {
         if(inputArraySize > 0) {
             arraySize = inputArraySize;
@@ -19,9 +17,27 @@ public class MyGraph <T> {
         graphElements = new MyVerticeNode[arraySize];
     }
 
+    public boolean isFull()
+    {
+        return (elementCounter == arraySize);
+    }
+    public boolean isEmpty()
+    {
+        return (elementCounter == 0);
+    }
+    public int howManyElements() {
+        return elementCounter;
+    }
+    private void increaseArray() {
+        int newArraySize = (arraySize > 100)? (int)(arraySize*1.5) : arraySize*2;
+        MyVerticeNode[] newElements = new MyVerticeNode[arraySize];
+        System.arraycopy(graphElements, 0, newElements, 0, arraySize);
+        graphElements = newElements;
+        arraySize = newArraySize;
+    }
+
     /*
-    public boolean isFull(){}
-    public boolean isEmpty(){}
+    TODO
     public boolean addVertice(T newItem){}
     public boolean addEdge(T fromV, T toV, int weight){}
     public int indexIs(T item){}
