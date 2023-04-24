@@ -52,10 +52,13 @@ public class MyGraph <T> {
             throw (new Exception("Vertice is null"));
         }
         //verify if vertice is not already in graph
-        for(int i = 0; i < elementCounter; i++){
+        /*for(int i = 0; i < elementCounter; i++){
             if(graphElements[i].getElement().equals(inputElement)){
                     throw (new Exception("Vertice is already in graph"));
             }
+        }*/
+        if(searchVertice(inputElement) > -1) {
+            throw (new Exception("Vertice is already in graph"));
         }
         //verify if graph is not full
         if(isFull())
@@ -67,8 +70,8 @@ public class MyGraph <T> {
             throw (new Exception("Incorrect arguments"));
         }
         //verify if elementFrom and elementTo are real
-        int indexFrom= searchVertice(elementFrom);
-        int indexTo= searchVertice(elementTo);
+        int indexFrom = searchVertice(elementFrom);
+        int indexTo = searchVertice(elementTo);
         //TODO add vertice if it is not found in graph
         if(indexTo < 0 || indexFrom < 0)
             throw (new Exception("One or both vertices are not in graph"));
@@ -84,7 +87,19 @@ public class MyGraph <T> {
             temp.setNext(newNode);
         }
     }
-    public void printNeighbourVertices(T fromV){}
+    public void printNeighbourVertices(T fromV) throws Exception{
+        if(isEmpty()){
+            throw (new Exception("Graph is empty"));
+        }
+        for(int i = 0; i < elementCounter; i++){
+            System.out.print(graphElements[i].getElement() + " --> ");
+            MyEdgeNode tempEdgeNode = graphElements[i].getFirstEdge();
+            while(tempEdgeNode.getNext() != null){
+                System.out.print(tempEdgeNode + " ");
+                tempEdgeNode = tempEdgeNode.getNext();
+            }
+        }
+    }
     public void makeEmpty(){}
 
     //TODO remove vertice
