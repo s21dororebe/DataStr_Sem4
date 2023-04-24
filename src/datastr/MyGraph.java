@@ -95,14 +95,25 @@ public class MyGraph <T> {
             System.out.print(graphElements[i].getElement() + " --> ");
             MyEdgeNode tempEdgeNode = graphElements[i].getFirstEdge();
             while(tempEdgeNode.getNext() != null){
-                System.out.print(tempEdgeNode + " ");
+                T verticeTo = (T) graphElements[tempEdgeNode.getIndexOfVertice()].getElement();
+                System.out.print(verticeTo + "( " + tempEdgeNode.getWeight()+ " km);");
                 tempEdgeNode = tempEdgeNode.getNext();
             }
+            System.out.println();
         }
     }
-    public void makeEmpty(){}
+    public void makeEmpty(){
+        if(!isEmpty()){
+            arraySize = DEFAULT_ARRAY_SIZE;
+            graphElements = new MyVerticeNode[arraySize];
+            elementCounter = 0;
+        }
+    }
 
     //TODO remove vertice
+    /*public void removeVertice(MyVerticeNode vertice){
+
+    }*/
     //TODO remove edge
     //TODO changeEdge
 
