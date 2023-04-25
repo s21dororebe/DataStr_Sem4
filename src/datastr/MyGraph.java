@@ -129,11 +129,11 @@ public class MyGraph <T> {
     }
 
     //TODO test remove vertice
-    public void removeVertice(MyVerticeNode vertice) throws Exception{
+    public void removeVertice(T vertice) throws Exception{
         //check if the vertice exists in the graph
-        if(searchVertice((T) vertice) >= 0){
+        if(searchVertice(vertice) >= 0){
             //if exists
-            int removeIndex = searchVertice((T) vertice);
+            int removeIndex = searchVertice(vertice);
             //creating new graph massive
             MyVerticeNode[] graphElementsNew = new MyVerticeNode[arraySize];
             int indexNewGraph = 0;
@@ -150,11 +150,11 @@ public class MyGraph <T> {
         } else throw (new Exception("The vertice you want to remove does not exist in the graph"));
     }
     //TODO test update vertice
-    public void updateVertice(MyVerticeNode vertice, T inputElement) throws Exception {
+    public void updateVertice(T vertice, T inputElement) throws Exception {
         //check if the vertice exists
-        if(searchVertice((T) vertice) >= 0){
+        if(searchVertice(vertice) >= 0){
             //check the inputElement -> it is checked in the MyVerticeNode class
-            graphElements[searchVertice((T) vertice)].setElement(inputElement);
+            graphElements[searchVertice(vertice)].setElement(inputElement);
         } else throw (new Exception("The vertice you want to remove does not exist in the graph"));
     }
     //TODO test remove edge
@@ -180,7 +180,30 @@ public class MyGraph <T> {
         }
         return false;
     }
-    //TODO changeEdge
+    //TODO updateEdgeWeight
+    public boolean updateEdgeWeight(T elementFrom, T elementTo, int inputWeight) throws Exception {
+        if(elementFrom == null && elementTo == null && inputWeight <= 0){
+            throw (new Exception("Incorrect arguments"));
+        }
+        //verify if elementFrom and elementTo are real
+        int indexFrom = searchVertice(elementFrom);
+        int indexTo = searchVertice(elementTo);
+        for(MyVerticeNode temp : graphElements){
+            //if vertices (city) is the city from
+            if(temp.getElement().equals(indexFrom)){
+                //check all the edges, if they have the same city to
+                MyEdgeNode pointer = temp.getFirstEdge();
+                while(pointer.getNext()!=null){
+                    if(pointer.getIndexOfVertice()==indexTo){
+                        pointer.setWeight(inputWeight);
+                        return true;
+                    }
+                    pointer = pointer.getNext();
+                }
+            }
+        }
+        return false;
+    }
 
 
 }
