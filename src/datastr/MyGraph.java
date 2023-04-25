@@ -89,8 +89,9 @@ public class MyGraph <T> {
         }
 
         //TODO check add vertices if it is not found in graph
-        if(indexTo < 0 || indexFrom < 0){
+        if(indexTo < 0){
             addVertice((T) new MyVerticeNode(indexTo));
+        } else if(indexFrom < 0){
             addVertice((T) new MyVerticeNode(indexFrom));
         }
 
@@ -128,10 +129,27 @@ public class MyGraph <T> {
         }
     }
 
-    //TODO remove vertice
-    /*public void removeVertice(MyVerticeNode vertice){
-
-    }*/
+    //TODO test remove vertice
+    public void removeVertice(MyVerticeNode vertice) throws Exception{
+        //check if the vertice exists in the graph
+        if(searchVertice((T) vertice) >= 0){
+            //if exists
+            int removeIndex = searchVertice((T) vertice);
+            //creating new graph massive
+            MyVerticeNode[] graphElementsNew = new MyVerticeNode[arraySize];
+            int indexNewGraph = 0;
+            //for loop to copy all of the element except the vertice we want to remove
+            for(int i = 0; i < arraySize; i++){
+                if(i != removeIndex){
+                    graphElementsNew[indexNewGraph++] = graphElements[i];
+                }
+            }
+            //linking new graph for the existing one
+            graphElements = graphElementsNew;
+            //minus one because we removed one vertice
+            elementCounter--;
+        } else throw (new Exception("The vertice you want to remove does not exist in the graph"));
+    }
     //TODO remove edge
     //TODO changeEdge
 
