@@ -79,8 +79,7 @@ public class MyGraph <T> {
                 //check all the edges, if they have the same city to
                 MyEdgeNode pointer = temp.getFirstEdge();
                 while(pointer.getNext()!=null){
-                    //TODO check or ? and
-                    if(pointer.getIndexOfVertice()==indexTo && pointer.getWeight()==edgeWeight){
+                    if(pointer.getIndexOfVertice()==indexTo){
                         throw (new Exception("This edge already exists"));
                     }
                     pointer = pointer.getNext();
@@ -158,7 +157,29 @@ public class MyGraph <T> {
             graphElements[searchVertice((T) vertice)].setElement(inputElement);
         } else throw (new Exception("The vertice you want to remove does not exist in the graph"));
     }
-    //TODO remove edge
+    //TODO test remove edge
+    public boolean removeEdge(T elementFrom, T elementTo) throws Exception{
+        if(elementFrom == null && elementTo == null){
+            throw (new Exception("Incorrect arguments"));
+        }
+        //verify if elementFrom and elementTo are real
+        int indexFrom = searchVertice(elementFrom);
+        int indexTo = searchVertice(elementTo);
+        for(MyVerticeNode temp : graphElements){
+            if(temp.getElement().equals(indexFrom)){
+                //check all the edges, if they have the same city to
+                MyEdgeNode pointer = temp.getFirstEdge();
+                while(pointer.getNext()!=null){
+                    if(pointer.getIndexOfVertice()==indexTo){
+                        pointer = null;
+                        return true;
+                    }
+                    pointer = pointer.getNext();
+                }
+            }
+        }
+        return false;
+    }
     //TODO changeEdge
 
 
