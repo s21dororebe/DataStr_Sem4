@@ -150,6 +150,14 @@ public class MyGraph <T> {
             elementCounter--;
         } else throw (new Exception("The vertice you want to remove does not exist in the graph"));
     }
+    //TODO test update vertice
+    public void updateVertice(MyVerticeNode vertice, T inputElement) throws Exception {
+        //check if the vertice exists
+        if(searchVertice((T) vertice) >= 0){
+            //check the inputElement -> it is checked in the MyVerticeNode class
+            graphElements[searchVertice((T) vertice)].setElement(inputElement);
+        } else throw (new Exception("The vertice you want to remove does not exist in the graph"));
+    }
     //TODO remove edge
     //TODO changeEdge
 
