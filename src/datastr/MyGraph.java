@@ -88,10 +88,11 @@ public class MyGraph <T> {
             }
         }
 
-        //TODO add vertice if it is not found in graph
-
-        if(indexTo < 0 || indexFrom < 0)
-            throw (new Exception("One or both vertices are not in graph"));
+        //TODO check add vertices if it is not found in graph
+        if(indexTo < 0 || indexFrom < 0){
+            addVertice((T) new MyVerticeNode(indexTo));
+            addVertice((T) new MyVerticeNode(indexFrom));
+        }
 
         MyEdgeNode newNode = new MyEdgeNode(indexTo, edgeWeight);
         //if it is as first edge
