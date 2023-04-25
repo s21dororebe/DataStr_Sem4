@@ -72,7 +72,24 @@ public class MyGraph <T> {
         //verify if elementFrom and elementTo are real
         int indexFrom = searchVertice(elementFrom);
         int indexTo = searchVertice(elementTo);
+        //TODO test the check if this edge already exists
+        for(MyVerticeNode temp : graphElements){
+            //if vertices (city) is the city from
+            if(temp.getElement().equals(indexFrom)){
+                //check all the edges, if they have the same city to
+                MyEdgeNode pointer = temp.getFirstEdge();
+                while(pointer.getNext()!=null){
+                    //TODO check or ? and
+                    if(pointer.getIndexOfVertice()==indexTo && pointer.getWeight()==edgeWeight){
+                        throw (new Exception("This edge already exists"));
+                    }
+                    pointer = pointer.getNext();
+                }
+            }
+        }
+
         //TODO add vertice if it is not found in graph
+
         if(indexTo < 0 || indexFrom < 0)
             throw (new Exception("One or both vertices are not in graph"));
 
@@ -87,16 +104,16 @@ public class MyGraph <T> {
             temp.setNext(newNode);
         }
     }
-    public void printNeighbourVertices(T fromV) throws Exception{
+    public void print() throws Exception{
         if(isEmpty()){
             throw (new Exception("Graph is empty"));
         }
         for(int i = 0; i < elementCounter; i++){
             System.out.print(graphElements[i].getElement() + " --> ");
             MyEdgeNode tempEdgeNode = graphElements[i].getFirstEdge();
-            while(tempEdgeNode.getNext() != null){
+            while(tempEdgeNode != null){
                 T verticeTo = (T) graphElements[tempEdgeNode.getIndexOfVertice()].getElement();
-                System.out.print(verticeTo + "( " + tempEdgeNode.getWeight()+ " km);");
+                System.out.print(verticeTo + " (" + tempEdgeNode.getWeight()+ " km); ");
                 tempEdgeNode = tempEdgeNode.getNext();
             }
             System.out.println();
