@@ -41,6 +41,10 @@ public class MainService {
             System.out.println();
             map.updateVertice("Washington", "Ventspils");
             map.print();
+
+            System.out.println();
+            map.removeEdge("Houston", "Atlanta");
+            map.print();
         } catch (Exception e){
             System.out.println(e);
         }

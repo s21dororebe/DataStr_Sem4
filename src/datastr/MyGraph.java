@@ -151,17 +151,18 @@ public class MyGraph <T> {
             graphElements[searchVertice(vertice)].setElement(inputElement);
         } else throw (new Exception("The vertice you want to remove does not exist in the graph"));
     }
-    public boolean removeEdge(T elementFrom, T elementTo) throws Exception {
-        if (elementFrom == null && elementTo == null) {
+    public void removeEdge(T elementFrom, T elementTo) throws Exception {
+        if (elementFrom == null || elementTo == null) {
             throw new Exception("Incorrect arguments");
         }
-        // Verify if elementFrom and elementTo are real
+
+        // Verify if elementFrom and elementTo are real vertices
         int indexFrom = searchVertice(elementFrom);
         int indexTo = searchVertice(elementTo);
 
         // Check if both vertices exist in the graph
         if (indexFrom < 0 || indexTo < 0) {
-            return false; // At least one vertex does not exist
+            throw new Exception("One or both vertices do not exist in the graph");
         }
 
         MyEdgeNode pointer = graphElements[indexFrom].getFirstEdge();
@@ -176,14 +177,15 @@ public class MyGraph <T> {
                     // If the edge to remove is not the first edge
                     prevPointer.setNext(pointer.getNext());
                 }
-                return true;
+                return;
             }
             prevPointer = pointer;
             pointer = pointer.getNext();
         }
 
-        return false; // Edge not found
+        throw new Exception("The edge between the given vertices does not exist");
     }
+
 
     public boolean updateEdgeWeight(T elementFrom, T elementTo, int inputWeight) throws Exception {
         if (elementFrom == null && elementTo == null && inputWeight <= 0) {
