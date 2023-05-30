@@ -13,9 +13,13 @@ public class MainService {
             map.addVertice("Atlanta"); //4
             map.addVertice("Houston"); //5
             map.addVertice("Chicago"); //6
+            map.print();
+            map.removeVertice("Dallas");
+//            map.print();
+            System.out.println();
 
             map.addEdge("Austin", "Dallas", 200);
-            map.addEdge("Austin", "Dallas", 200);
+//            map.addEdge("Austin", "Dallas", 200);
             map.addEdge("Dallas", "Austin", 200);
             map.addEdge("Dallas", "Denver", 780);
             map.addEdge("Dallas", "Chicago", 900);
@@ -28,7 +32,10 @@ public class MainService {
             map.addEdge("Atlanta", "Washington", 600);
             map.addEdge("Washington", "Atlanta", 600);
             map.addEdge("Washington", "Dallas", 1300);
+            map.print();
 
+            System.out.println();
+            map.updateEdgeWeight("Washington", "Dallas", 2000);
             map.print();
         } catch (Exception e){
             System.out.println(e);

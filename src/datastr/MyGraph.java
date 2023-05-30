@@ -35,7 +35,6 @@ public class MyGraph <T> {
         graphElements = newElements;
         arraySize = newArraySize;
     }
-
     private int searchVertice(T inputVertice){
         for(int i = 0; i < elementCounter; i++){
             if(graphElements[i].getElement().equals(inputVertice)){
@@ -46,7 +45,6 @@ public class MyGraph <T> {
         //return -1 if element is not there
         return -1;
     }
-
     public void addVertice(T inputElement) throws Exception {
         if(inputElement == null){
             throw (new Exception("Vertice is null"));
@@ -65,47 +63,43 @@ public class MyGraph <T> {
             increaseArray();
         graphElements[elementCounter++] = new MyVerticeNode<>(inputElement);
     }
-    public void addEdge(T elementFrom, T elementTo, int edgeWeight) throws Exception{
-        if(elementFrom == null && elementTo == null && edgeWeight <= 0){
-                throw (new Exception("Incorrect arguments"));
-        }
-        //verify if elementFrom and elementTo are real
+
+    public void addEdge(T elementFrom, T elementTo, int edgeWeight) throws Exception {
+        // Verify if elementFrom and elementTo are real
         int indexFrom = searchVertice(elementFrom);
         int indexTo = searchVertice(elementTo);
 
-        //check if this edge already exists
-        for (int i = 0; i < elementCounter; i++) {
-            // if vertices (city) is the city from
-            if (graphElements[i].getElement().equals(elementFrom)) {
-                // check all the edges, if they have the same city to
-                MyEdgeNode pointer = graphElements[i].getFirstEdge();
-                while (pointer != null) {
-                    if (pointer.getIndexOfVertice() == indexTo) {
-                        throw new Exception("This edge already exists");
-                    }
-                    pointer = pointer.getNext();
-                }
-            }
+        // If vertices do not exist, create them
+        if (indexTo < 0) {
+            addVertice(elementTo);
+            indexTo = elementCounter - 1; // Get the newly added vertex index
+        }
+        if (indexFrom < 0) {
+            addVertice(elementFrom);
+            indexFrom = elementCounter - 1; // Get the newly added vertex index
         }
 
-        //if vertices does not exist, create them
-        if(indexTo < 0){
-            addVertice((T) new MyVerticeNode(elementTo));
-        } else if(indexFrom < 0){
-            addVertice((T) new MyVerticeNode(elementFrom));
+        // Check if this edge already exists
+        MyEdgeNode pointer = graphElements[indexFrom].getFirstEdge();
+        while (pointer != null) {
+            if (pointer.getIndexOfVertice() == indexTo) {
+                throw new Exception("This edge already exists");
+            }
+            pointer = pointer.getNext();
         }
 
         MyEdgeNode newNode = new MyEdgeNode(indexTo, edgeWeight);
-        //if it is as first edge
-        if(graphElements[indexFrom].getFirstEdge()==null){
+        // If it is the first edge
+        if (graphElements[indexFrom].getFirstEdge() == null) {
             graphElements[indexFrom].setFirstEdge(newNode);
         } else {
             MyEdgeNode temp = graphElements[indexFrom].getFirstEdge();
-            while(temp.getNext()!=null)
+            while (temp.getNext() != null)
                 temp = temp.getNext();
             temp.setNext(newNode);
         }
     }
+
     public void print() throws Exception{
         if(isEmpty()){
             throw (new Exception("Graph is empty"));
@@ -129,7 +123,6 @@ public class MyGraph <T> {
         }
     }
 
-    //TODO test remove vertice
     public void removeVertice(T vertice) throws Exception{
         //check if the vertice exists in the graph
         if(searchVertice(vertice) >= 0){
@@ -150,6 +143,7 @@ public class MyGraph <T> {
             elementCounter--;
         } else throw (new Exception("The vertice you want to remove does not exist in the graph"));
     }
+
     //TODO test update vertice
     public void updateVertice(T vertice, T inputElement) throws Exception {
         //check if the vertice exists
@@ -158,52 +152,64 @@ public class MyGraph <T> {
             graphElements[searchVertice(vertice)].setElement(inputElement);
         } else throw (new Exception("The vertice you want to remove does not exist in the graph"));
     }
-    //TODO test remove edge
-    public boolean removeEdge(T elementFrom, T elementTo) throws Exception{
-        if(elementFrom == null && elementTo == null){
-            throw (new Exception("Incorrect arguments"));
+    public boolean removeEdge(T elementFrom, T elementTo) throws Exception {
+        if (elementFrom == null && elementTo == null) {
+            throw new Exception("Incorrect arguments");
         }
-        //verify if elementFrom and elementTo are real
+        // Verify if elementFrom and elementTo are real
         int indexFrom = searchVertice(elementFrom);
         int indexTo = searchVertice(elementTo);
-        for(MyVerticeNode temp : graphElements){
-            if(temp.getElement().equals(indexFrom)){
-                //check all the edges, if they have the same city to
-                MyEdgeNode pointer = temp.getFirstEdge();
-                while(pointer.getNext()!=null){
-                    if(pointer.getIndexOfVertice()==indexTo){
-                        pointer = null;
-                        return true;
-                    }
-                    pointer = pointer.getNext();
-                }
-            }
+
+        // Check if both vertices exist in the graph
+        if (indexFrom < 0 || indexTo < 0) {
+            return false; // At least one vertex does not exist
         }
-        return false;
+
+        MyEdgeNode pointer = graphElements[indexFrom].getFirstEdge();
+        MyEdgeNode prevPointer = null;
+
+        while (pointer != null) {
+            if (pointer.getIndexOfVertice() == indexTo) {
+                if (prevPointer == null) {
+                    // If the edge to remove is the first edge
+                    graphElements[indexFrom].setFirstEdge(pointer.getNext());
+                } else {
+                    // If the edge to remove is not the first edge
+                    prevPointer.setNext(pointer.getNext());
+                }
+                return true;
+            }
+            prevPointer = pointer;
+            pointer = pointer.getNext();
+        }
+
+        return false; // Edge not found
     }
-    //TODO updateEdgeWeight
+
     public boolean updateEdgeWeight(T elementFrom, T elementTo, int inputWeight) throws Exception {
-        if(elementFrom == null && elementTo == null && inputWeight <= 0){
-            throw (new Exception("Incorrect arguments"));
+        if (elementFrom == null && elementTo == null && inputWeight <= 0) {
+            throw new Exception("Incorrect arguments");
         }
-        //verify if elementFrom and elementTo are real
+        // Verify if elementFrom and elementTo are real
         int indexFrom = searchVertice(elementFrom);
         int indexTo = searchVertice(elementTo);
-        for(MyVerticeNode temp : graphElements){
-            //if vertices (city) is the city from
-            if(temp.getElement().equals(indexFrom)){
-                //check all the edges, if they have the same city to
-                MyEdgeNode pointer = temp.getFirstEdge();
-                while(pointer.getNext()!=null){
-                    if(pointer.getIndexOfVertice()==indexTo){
-                        pointer.setWeight(inputWeight);
-                        return true;
-                    }
-                    pointer = pointer.getNext();
-                }
-            }
+
+        // Check if both vertices exist in the graph
+        if (indexFrom < 0 || indexTo < 0) {
+            return false; // At least one vertex does not exist
         }
-        return false;
+
+        MyEdgeNode pointer = graphElements[indexFrom].getFirstEdge();
+
+        while (pointer != null) {
+            if (pointer.getIndexOfVertice() == indexTo) {
+                pointer.setWeight(inputWeight);
+                return true;
+            }
+            pointer = pointer.getNext();
+        }
+
+        return false; // Edge not found
     }
 
 
