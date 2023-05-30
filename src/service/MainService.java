@@ -15,6 +15,7 @@ public class MainService {
             map.addVertice("Chicago"); //6
 
             map.addEdge("Austin", "Dallas", 200);
+            map.addEdge("Austin", "Dallas", 200);
             map.addEdge("Dallas", "Austin", 200);
             map.addEdge("Dallas", "Denver", 780);
             map.addEdge("Dallas", "Chicago", 900);
