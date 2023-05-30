@@ -42,6 +42,4 @@ public class MyEdgeNode {
     public String toString() {
         return "" + weight;
     }
-
-    //OTHER FUNCTIONS
 }

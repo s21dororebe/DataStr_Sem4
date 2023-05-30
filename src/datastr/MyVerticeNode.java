@@ -32,4 +32,23 @@ public class MyVerticeNode <T> {
         return "" + element;
     }
     //OTHER FUNCTIONS
+    public void removeEdge(MyEdgeNode edge) {
+        MyEdgeNode current = firstEdge;
+        MyEdgeNode previous = null;
+
+        while (current != null) {
+            if (current == edge) {
+                if (previous == null) {
+                    // If the edge to remove is the first edge
+                    firstEdge = current.getNext();
+                } else {
+                    // If the edge to remove is not the first edge
+                    previous.setNext(current.getNext());
+                }
+                break;
+            }
+            previous = current;
+            current = current.getNext();
+        }
+    }
 }

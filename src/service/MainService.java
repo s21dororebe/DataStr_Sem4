@@ -57,6 +57,13 @@ public class MainService {
                 System.out.println("It is not possible to update edge");
             }
 
+            System.out.println();
+            if(map.updateEdgeByItsVerticeFrom("Austin", "Houston", "Ventspils")){
+                map.print();
+            } else {
+                System.out.println("It is not possible to update edge");
+            }
+
 
         } catch (Exception e){
             System.out.println(e);

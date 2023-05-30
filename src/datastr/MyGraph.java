@@ -63,7 +63,7 @@ public class MyGraph <T> {
             increaseArray();
         graphElements[elementCounter++] = new MyVerticeNode<>(inputElement);
     }
-    public void addEdge(T elementFrom, T elementTo, int edgeWeight) throws Exception {
+    public void addEdge(T elementFrom, T elementTo, float edgeWeight) throws Exception {
         // Verify if elementFrom and elementTo are real
         int indexFrom = searchVertice(elementFrom);
         int indexTo = searchVertice(elementTo);
@@ -181,7 +181,7 @@ public class MyGraph <T> {
 
         throw new Exception("The edge between the given vertices does not exist");
     }
-    public boolean updateEdgeWeight(T elementFrom, T elementTo, int inputWeight) throws Exception {
+    public boolean updateEdgeWeight(T elementFrom, T elementTo, float inputWeight) throws Exception {
         if (elementFrom == null && elementTo == null && inputWeight <= 0) {
             throw new Exception("Incorrect arguments");
         }
@@ -241,8 +241,32 @@ public class MyGraph <T> {
         //return -1 if element is not there
         return null;
     }
-
-
-
+    public boolean updateEdgeByItsVerticeFrom(T elementFrom, T elementTo, T newElementFrom) throws Exception {
+        // Find the edge by its vertices (elementFrom and elementTo)
+        MyEdgeNode edge = findEdgeByVertices(elementFrom, elementTo);
+        if (findEdgeByVertices(newElementFrom, elementTo) != null) {
+            throw new Exception("The edge between the vertices already exists");
+        }
+        // Check if the found edge is null
+        if (edge == null) {
+            // If it is, display an error message indicating that the edge between the specified vertices does not exist
+            throw new Exception("The edge between the specified vertices does not exist");
+        } else {
+            // If the edge is not null, check if the graph contains the new vertice from
+            if (searchVertice(newElementFrom) >= 0) {
+                // If it exists, update the vertice from with the new value (newElementFrom)
+                MyVerticeNode newVerticeFrom = graphElements[searchVertice(newElementFrom)];
+                // Remove the edge from the current source vertex's edge list
+                MyVerticeNode currentVerticeFrom = graphElements[edge.getIndexOfVertice()];
+                currentVerticeFrom.removeEdge(edge);
+                // Add the edge to the new source vertex's edge list
+                float weight = edge.getWeight();
+                addEdge((T) newVerticeFrom.getElement(), elementTo, weight);
+                return true;
+            } else {
+                throw new Exception("The source vertice does not exist in the graph");
+            }
+        }
+    }
 
 }
