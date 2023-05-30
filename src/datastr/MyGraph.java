@@ -144,7 +144,6 @@ public class MyGraph <T> {
         } else throw (new Exception("The vertice you want to remove does not exist in the graph"));
     }
 
-    //TODO test update vertice
     public void updateVertice(T vertice, T inputElement) throws Exception {
         //check if the vertice exists
         if(searchVertice(vertice) >= 0){

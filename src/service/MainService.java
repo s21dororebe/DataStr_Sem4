@@ -37,6 +37,10 @@ public class MainService {
             System.out.println();
             map.updateEdgeWeight("Washington", "Dallas", 2000);
             map.print();
+
+            System.out.println();
+            map.updateVertice("Washington", "Ventspils");
+            map.print();
         } catch (Exception e){
             System.out.println(e);
         }
