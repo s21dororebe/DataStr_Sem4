@@ -63,35 +63,36 @@ public class MyGraph <T> {
         //verify if graph is not full
         if(isFull())
             increaseArray();
-        graphElements[elementCounter++] = new MyVerticeNode<T>(inputElement);
+        graphElements[elementCounter++] = new MyVerticeNode<>(inputElement);
     }
     public void addEdge(T elementFrom, T elementTo, int edgeWeight) throws Exception{
         if(elementFrom == null && elementTo == null && edgeWeight <= 0){
-            throw (new Exception("Incorrect arguments"));
+                throw (new Exception("Incorrect arguments"));
         }
         //verify if elementFrom and elementTo are real
         int indexFrom = searchVertice(elementFrom);
         int indexTo = searchVertice(elementTo);
-        //TODO test the check if this edge already exists
-        for(MyVerticeNode temp : graphElements){
-            //if vertices (city) is the city from
-            if(temp.getElement().equals(indexFrom)){
-                //check all the edges, if they have the same city to
-                MyEdgeNode pointer = temp.getFirstEdge();
-                while(pointer.getNext()!=null){
-                    if(pointer.getIndexOfVertice()==indexTo){
-                        throw (new Exception("This edge already exists"));
+
+        //check if this edge already exists
+        for (int i = 0; i < elementCounter; i++) {
+            // if vertices (city) is the city from
+            if (graphElements[i].getElement().equals(elementFrom)) {
+                // check all the edges, if they have the same city to
+                MyEdgeNode pointer = graphElements[i].getFirstEdge();
+                while (pointer != null) {
+                    if (pointer.getIndexOfVertice() == indexTo) {
+                        throw new Exception("This edge already exists");
                     }
                     pointer = pointer.getNext();
                 }
             }
         }
 
-        //TODO check add vertices if it is not found in graph
+        //if vertices does not exist, create them
         if(indexTo < 0){
-            addVertice((T) new MyVerticeNode(indexTo));
+            addVertice((T) new MyVerticeNode(elementTo));
         } else if(indexFrom < 0){
-            addVertice((T) new MyVerticeNode(indexFrom));
+            addVertice((T) new MyVerticeNode(elementFrom));
         }
 
         MyEdgeNode newNode = new MyEdgeNode(indexTo, edgeWeight);
