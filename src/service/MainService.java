@@ -48,6 +48,16 @@ public class MainService {
             System.out.println();
             map.removeEdge("Houston", "Atlanta");
             map.print();
+
+            System.out.println();
+//            map.updateEdgeByItsVerticeTo("Dallas", "Denver", "Chicago");
+            if(map.updateEdgeByItsVerticeTo("Atlanta", "Ventspils", "Chicago")){
+                map.print();
+            } else {
+                System.out.println("It is not possible to update edge");
+            }
+
+
         } catch (Exception e){
             System.out.println(e);
         }

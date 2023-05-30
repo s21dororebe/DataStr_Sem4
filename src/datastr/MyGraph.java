@@ -63,7 +63,6 @@ public class MyGraph <T> {
             increaseArray();
         graphElements[elementCounter++] = new MyVerticeNode<>(inputElement);
     }
-
     public void addEdge(T elementFrom, T elementTo, int edgeWeight) throws Exception {
         // Verify if elementFrom and elementTo are real
         int indexFrom = searchVertice(elementFrom);
@@ -72,11 +71,11 @@ public class MyGraph <T> {
         // If vertices do not exist, create them
         if (indexTo < 0) {
             addVertice(elementTo);
-            indexTo = elementCounter - 1; // Get the newly added vertex index
+            indexTo = elementCounter - 1; // Get the newly added vertice index
         }
         if (indexFrom < 0) {
             addVertice(elementFrom);
-            indexFrom = elementCounter - 1; // Get the newly added vertex index
+            indexFrom = elementCounter - 1; // Get the newly added vertice index
         }
 
         // Check if this edge already exists
@@ -99,7 +98,6 @@ public class MyGraph <T> {
             temp.setNext(newNode);
         }
     }
-
     public void print() throws Exception{
         if(isEmpty()){
             throw (new Exception("Graph is empty"));
@@ -122,7 +120,6 @@ public class MyGraph <T> {
             elementCounter = 0;
         }
     }
-
     public void removeVertice(T vertice) throws Exception{
         //check if the vertice exists in the graph
         if(searchVertice(vertice) >= 0){
@@ -143,7 +140,6 @@ public class MyGraph <T> {
             elementCounter--;
         } else throw (new Exception("The vertice you want to remove does not exist in the graph"));
     }
-
     public void updateVertice(T vertice, T inputElement) throws Exception {
         //check if the vertice exists
         if(searchVertice(vertice) >= 0){
@@ -185,8 +181,6 @@ public class MyGraph <T> {
 
         throw new Exception("The edge between the given vertices does not exist");
     }
-
-
     public boolean updateEdgeWeight(T elementFrom, T elementTo, int inputWeight) throws Exception {
         if (elementFrom == null && elementTo == null && inputWeight <= 0) {
             throw new Exception("Incorrect arguments");
@@ -197,7 +191,7 @@ public class MyGraph <T> {
 
         // Check if both vertices exist in the graph
         if (indexFrom < 0 || indexTo < 0) {
-            return false; // At least one vertex does not exist
+            return false; // At least one vertice does not exist
         }
 
         MyEdgeNode pointer = graphElements[indexFrom].getFirstEdge();
@@ -212,6 +206,43 @@ public class MyGraph <T> {
 
         return false; // Edge not found
     }
+    public boolean updateEdgeByItsVerticeTo(T elementFrom, T elementTo, T newElementTo) throws Exception {
+        //find the edge by its vertices (elementFrom and elementTo)
+        MyEdgeNode edge = findEdgeByVertices(elementFrom, elementTo);
+        if(findEdgeByVertices(elementFrom, newElementTo)!=null){
+            throw new Exception("The edge between the vertices already exists");
+        }
+        //Check if the found edge is null
+        if(edge == null){
+            //If it is, display an error message indicating that the edge between the specified vertices does not exist
+            throw new Exception("The edge between the specified vertices does not exist");
+        } else {
+            //If the edge is not null, check if the graph contains the new destination vertice
+            if(searchVertice(newElementTo) >= 0){
+                //If exists, update the destination vertex of the edge with the new value (newElementTo) - call a setter method (setElementTo()) on the MyEdge object
+                edge.setIndexOfVertice(searchVertice(newElementTo));
+                return true;
+            } else throw (new Exception("The vertice-destination does not exist in the graph"));
+        }
+    }
+    public MyEdgeNode findEdgeByVertices(T elementFrom, T elementTo){
+        int indexOfElementTo = searchVertice(elementTo);
+        for(int i = 0; i < elementCounter; i++){
+            if(graphElements[i].getElement().equals(elementFrom)){
+                MyEdgeNode pointer = graphElements[i].getFirstEdge();
+                while (pointer != null) {
+                    if (pointer.getIndexOfVertice() == indexOfElementTo) {
+                        return pointer;
+                    }
+                    pointer = pointer.getNext();
+                }
+            }
+        }
+        //return -1 if element is not there
+        return null;
+    }
+
+
 
 
 }
