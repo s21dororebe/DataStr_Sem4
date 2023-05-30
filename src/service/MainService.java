@@ -35,8 +35,11 @@ public class MainService {
             map.print();
 
             System.out.println();
-            map.updateEdgeWeight("Washington", "Dallas", 2000);
-            map.print();
+            if(map.updateEdgeWeight("Washington", "Dallas", 2000)){
+                map.print();
+            } else {
+                System.out.println("It is not possible to update edge weight");
+            }
 
             System.out.println();
             map.updateVertice("Washington", "Ventspils");
