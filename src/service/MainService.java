@@ -1,13 +1,9 @@
 package service;
 
-import datastr.MyEdgeNode;
-import datastr.MyGraph;
-import datastr.MyVerticeNode;
-
-import java.util.ArrayList;
+import datastr.*;
 
 public class MainService {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         MyGraph<String> map = new MyGraph<>();
         try {
             map.addVertice("Dallas"); //0
